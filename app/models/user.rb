@@ -23,7 +23,7 @@ class User < ActiveRecord::Base
   end
 
   def self.generate_session_token
-    SecureRandom.safeurl_base64(16)
+    SecureRandom.base64(16)
   end
 
   def reset_session_token!
