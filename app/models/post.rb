@@ -8,4 +8,12 @@ class Post < ActiveRecord::Base
     primary_key: :id
   )
 
+  has_many :post_subs
+
+  has_many(
+    :subs,
+    through: :post_subs,
+    source: :sub
+  )
+
 end

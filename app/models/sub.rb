@@ -9,6 +9,8 @@ class Sub < ActiveRecord::Base
     primary_key: :id
   )
 
+  has_many :post_subs
+
   has_many(
     :posts,
     through: :post_subs,
