@@ -5,6 +5,13 @@ class User < ActiveRecord::Base
 
   after_initialize :ensure_session_token
 
+  has_many(
+    :subs,
+    class_name: 'Sub',
+    foreign_key: :moderator_id,
+    primary_key: :id
+  )
+
   attr_reader :password
 
   def password=(password)
