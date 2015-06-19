@@ -1,2 +1,9 @@
 <h1><%= @post.title %></h1>
 <%= @post.content %>
+<br>
+<% @post.comments.each do |comment| %>
+  <%= comment.content %>
+  <br>
+<% end %>
+
+<a href="<%= new_post_comment_url(@post) %>">New Comment</a>
