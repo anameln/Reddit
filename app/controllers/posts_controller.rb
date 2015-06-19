@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
 
-  before_action :must_be_moderator, only: [:edit, :update]
+  # before_action :must_be_author, only: [:edit, :update]
   before_action :must_be_logged_in, except: [:show, :index]
 
   def new
@@ -10,11 +10,9 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = Post.new(post_params)
-    @post.moderator_id = current_user.id
-
+    @post = current_user.posts.new(post_params)
     if @post.save
-      redirect_to posts_url
+      redirect_to subs_url
     else
       render :new
     end
@@ -22,15 +20,17 @@ class PostsController < ApplicationController
 
   def edit
     @post = Post.find(params[:id])
+    must_be_author(@post)
 
     render :edit
   end
 
   def update
     @post = Post.find(params[:id])
+    must_be_author(@post)
 
     if @post.update(post_params)
-      redirect_to posts_url
+      redirect_to post_url(@post)
     else
       render :edit
     end
@@ -52,11 +52,11 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:title, :url, :content, :sub_id)
+    params.require(:post).permit(:title, :url, :content, sub_ids: [])
   end
 
-  def must_be_moderator
-    unless current_user.id == moderator_id
+  def must_be_author(post)
+    unless current_user.id == post.author_id
       raise "Access denied."
     end
   end
