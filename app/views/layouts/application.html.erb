@@ -2,11 +2,30 @@
 <html>
 <head>
   <title>Reddit</title>
-  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
-  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
-  <%= csrf_meta_tags %>
 </head>
 <body>
+
+<% if current_user %>
+  <form action="<%= session_url %>" method="post">
+    <input type="hidden" name="_method" value="delete">
+
+    <input type="hidden"
+      name="authenticity_token"
+      value="<%= form_authenticity_token %>">
+
+    <button>Log out, <%= current_user.email %></button>
+  </form>
+<% else %>
+  <form action="<%= new_session_url %>" method="get">
+
+    <input type="hidden"
+      name="authenticity_token"
+      value="<%= form_authenticity_token %>">
+
+    <button>Log in</button>
+  </form>
+
+<% end %>
 
 <%= yield %>
 
