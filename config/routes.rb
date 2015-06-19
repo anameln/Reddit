@@ -5,4 +5,7 @@ Reddit::Application.routes.draw do
   resources :posts do
     resources :comments, only: [:new, :create]
   end
+  resources :comments, only: [:show] do
+    resources :comments, only: [:new, :create]
+  end
 end

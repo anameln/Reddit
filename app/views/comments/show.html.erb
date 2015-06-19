@@ -1,0 +1,9 @@
+<%= @comment.content %>
+
+<% if @comment.child_comments %>
+  <% @comment.child_comments.each do |comment| %>
+    <a href="<%= comment_url(comment) %>">"<%=comment_url(comment) %>"</a>
+  <% end %>
+<% end %>
+<br>
+<a href="<%= new_comment_comment_url(@comment) %>">New Comment</a>

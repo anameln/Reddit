@@ -1,11 +1,13 @@
 <h1>Your comment:</h1>
 
-<form action='<%= post_comments_url(params[:post_id]) %>' method="post">
+<% parent_id = params[:comment_id] ? params[:comment_id] : params[:post_id] %>
+
+<form action="<%= post_comments_url(parent_id) %>" method="post">
   <input type="hidden"
     name="authenticity_token"
     value="<%= form_authenticity_token %>">
 
-  <textarea name='comment[content]'><%= @comment.content %></textarea>
+  <textarea name="comment[content]"><%= @comment.content %></textarea>
 
   <button>Post</button>
 </form>

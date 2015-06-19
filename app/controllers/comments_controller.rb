@@ -16,6 +16,18 @@ class CommentsController < ApplicationController
     end
   end
 
+  def show
+    @comment = Comment.find(params[:id])
+
+    render :show
+  end
+
+  helper_method :has_parent?
+
+  def has_parent?(comment)
+    !!comment.parent_comment_id
+  end
+
   private
 
   def comment_params

@@ -2,7 +2,7 @@
 <%= @post.content %>
 <br>
 <% @post.comments.each do |comment| %>
-  <%= comment.content %>
+  <a href="<%= comment_url(comment)%>"><%= comment.content %></a>
   <br>
 <% end %>
 
